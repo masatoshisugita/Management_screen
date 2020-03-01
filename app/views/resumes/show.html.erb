@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+  <table class="mt-5 table1" border="1">
+    <tr>
+      <th>id</th>
+      <th>名前</th>
+      <th>年齢</th>
+      <th>性別</th>
+      <th>誕生日</th>
+      <th>配偶者</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+    <tr>
+      <td><%= @resume.id %></td>
+      <td><%= @resume.name %></td>
+      <td><%= @resume.age %></td>
+      <td><%= @resume.gender %></td>
+      <td><%= @resume.birthday %></td>
+      <td><%= @marry %></td>
+      <td><%= link_to "編集",edit_resume_path(@resume) %></td>
+      <td><%= link_to "削除",@resume,method: :delete, data: {confirm: "#{@resume.name}を削除します。よろしいですか？"} %></td>
+    </tr>
+  </table>
+
+  <table border="1">
+    <tr>
+      <th>履歴書または経歴書</th>
+      <th>自己PR</th>
+    </tr>
+
+    <tr>
+      <% if !(@resume.file.file.nil?) %>
+        <td><%= image_tag @resume.file.url, :size =>'500x500' %></td>
+      <% else %>
+        <td>登録なし</td>
+      <% end %>
+      <td><%= @resume.promotion %></td>
+    </tr>
+
+  </table>
+  </div>
+</div>
