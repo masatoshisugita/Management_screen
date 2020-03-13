@@ -1,4 +1,6 @@
 class ResumesController < ApplicationController
+  before_action :set_resume, only: [:show, :edit, :update, :destroy]
+
   def index
     @resumes = Resume.all
   end
@@ -23,11 +25,9 @@ class ResumesController < ApplicationController
   end
 
   def edit
-    @resume = Resume.find(params[:id])
   end
 
   def show
-    @resume = Resume.find(params[:id])
     if @resume.marry == true
       @marry = "あり"
     else
@@ -36,7 +36,6 @@ class ResumesController < ApplicationController
   end
 
   def update
-    @resume = Resume.find(params[:id])
     if @resume.update(resume_params)
       redirect_to root_path, notice: "更新しました"
     else
@@ -45,12 +44,15 @@ class ResumesController < ApplicationController
   end
 
   def destroy
-    @resume = Resume.find(params[:id])
     @resume.destroy
     redirect_to root_path,notice: "#{@resume.name}を削除しました"
   end
 
   private
+
+  def set_resume
+    @resume = Resume.find(params[:id])
+  end
 
   def resume_params
     params.require(:resume).permit(:name,:age,:gender,:birthday,:promotion,:marry,:file)
