@@ -20,9 +20,16 @@
     </div>
 
     <div class="container">
+
       <% if flash.notice.present? %>
       <div class="alert alert-success mt-3">
         <%= flash[:notice] %>
+      </div>
+      <% end %>
+
+      <% if flash.alert.present? %>
+        <div class="alert alert-warning mt-3">
+        <%= flash[:alert] %>
       </div>
       <% end %>
       <%= yield %>

@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_071607) do
+ActiveRecord::Schema.define(version: 2020_03_01_064353) do
 
   create_table "resumes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.integer "age"
+    t.string "name", limit: 15, null: false
+    t.integer "age", limit: 3, null: false
     t.string "gender"
-    t.date "birthday"
-    t.string "promotion"
+    t.date "birthday", null: false
+    t.string "promotion", limit: 400, null: false
     t.boolean "marry"
     t.string "file"
   end
