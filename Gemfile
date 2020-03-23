@@ -51,6 +51,7 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
