@@ -3,31 +3,31 @@
     <h1 class="text-center">新規登録</h1>
     <%= form_with model: @resume, local: true do |f| %>
     <div class="form-group">
-      <%= f.label :名前, class: '' %>
+      <%= f.label :name %>
       <%= f.text_field :name, :size => "30" %>
     </div>
     <div class="form-group">
-      <%= f.label :年齢, class: '' %>
+      <%= f.label :age %>
       <%= f.text_field :age,:size => "5" %>歳
     </div>
     <div class="form-group">
-      <%= f.label :性別, class: '' %>
+      <%= f.label :gender %>
       <%= f.radio_button :gender, "男" %>男 <%= f.radio_button :gender, "女" %>女
     </div>
     <div class="form-group">
-      <%= f.label :誕生日, class: '' %>
+      <%= f.label :birthday %>
       <%= f.date_select :birthday,{start_year: 1950, end_year: 2010,use_month_numbers: true ,default: { year: 1990, month: 1, day: 1 }} %>
     </div>
     <div class="form-group">
-      <%= f.label :自己PR, class: '' %>
+      <%= f.label :promotion %>
       <%= f.text_area :promotion, class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%= f.label :配偶者あり, class: '' %>
-      <%= f.check_box :marry, class: '' %>
+      <%= f.label :marry %>
+      <%= f.check_box :marry %>
     </div>
     <div class="form-group">
-      <%= f.label :履歴書または経歴書, class: '' %>
+      <%= f.label :file %>
       <%= f.file_field :file, class: 'form-control' %>
     </div>
     <%= f.submit "登録", class: 'btn-block btn-primary' %>

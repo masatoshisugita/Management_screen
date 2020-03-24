@@ -12,7 +12,7 @@ class ResumesController < ApplicationController
   def create
     @resume = Resume.new(resume_params)
     if file = params[:file]
-      @resume.file= "#{@resume.id}.jpg"
+      @resume.file = "#{@resume.id}.jpg"
       File.binwrite("public/#{@resume.file}",file.read)
     end
 
