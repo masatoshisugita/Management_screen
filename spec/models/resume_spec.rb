@@ -15,6 +15,11 @@ RSpec.describe Resume, type: :model do
       expect(resume).to be_valid
     end
 
+    # it "画像ファイルがあれば、保存されること" do
+    #   resume = FactoryBot.create(:resume)
+    #   expect(resume).to be_valid
+    # end
+
     it "名前が空なら無効なこと" do
       resume = FactoryBot.build(:resume,name: nil)
       resume.valid?
@@ -57,7 +62,7 @@ RSpec.describe Resume, type: :model do
       expect(resume).not_to be_valid
       expect(resume.errors[:promotion]).to be_present
     end
-    
+
     #ショルダーマッチャを使うことで、バリデーションを一行で書くことができる
     # it { is_expected.to validate_presence_of :name }
     # it { is_expected.to validate_presence_of :age }

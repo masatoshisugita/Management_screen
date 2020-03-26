@@ -14,8 +14,9 @@ RSpec.feature "Resumes", type: :feature do
     select "3",from: "resume_birthday_2i"
     select "15",from: "resume_birthday_3i"
     fill_in "Promotion" ,with: "がんばります"
+    attach_file "File","#{Rails.root}/spec/files/test_file.jpg"
     uncheck "Marry"
-    
+
     click_button "登録"
 
     expect(page).to have_content "投稿に成功しました"

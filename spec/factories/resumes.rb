@@ -6,7 +6,7 @@ FactoryBot.define do
     birthday "1993-01-01"
     promotion "がんばります"
     marry true
-    file nil
+    file File.open(File.join(Rails.root, 'spec/files/test_file.jpg'))
 
     #無効になっている
     trait :invalid do

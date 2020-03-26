@@ -44,4 +44,23 @@ class FileUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  # テストでアップされるディレクトリは別のファイルで保存される
+  if Rails.env.test?
+    def cache_dir
+      "#{Rails.root}/spec/support/uploads/tmp"
+    end
+    def store_dir
+      "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
+  end
+
+  #テストでアップされた画像は毎回削除する
+  RSpec.configure do |config|
+    config.after(:all) do
+      if Rails.env.test?
+        FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+      end
+    end
+  end
 end
