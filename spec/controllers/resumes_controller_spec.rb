@@ -10,8 +10,10 @@ RSpec.describe ResumesController, type: :controller do
 
   describe "#create" do
     context "有効な属性値の場合" do
-      it "resumeを追加できること" do
+      before do
         resume = Resume.new
+      end
+      it "resumeを追加できること" do
         resume_params = FactoryBot.attributes_for(:resume)
         expect{post :create, params: {resume: resume_params}}.to change{Resume.count}.by(1)
       end
@@ -19,7 +21,6 @@ RSpec.describe ResumesController, type: :controller do
 
     context "無効な属性値の場合" do
       it "resumeを追加できないこと" do
-        resume = Resume.new
         resume_params = FactoryBot.attributes_for(:resume,:invalid)
         expect{post :create, params: {resume: resume_params}}.not_to change{Resume.count}
       end
@@ -47,15 +48,16 @@ RSpec.describe ResumesController, type: :controller do
       end
 
       context "無効な属性値の場合" do
+        before do
+          @resume_params = FactoryBot.attributes_for(:resume,name: nil)
+        end
         it "resumeを追加できないこと" do
-          resume_params = FactoryBot.attributes_for(:resume,name: nil)
-          patch :update, params: {id: @resume.id, resume: resume_params}
+          patch :update, params: {id: @resume.id, resume: @resume_params}
           expect(@resume.reload.name).to eq "Test Name"
         end
 
         it "編集画面に戻ること"do
-          resume_params = FactoryBot.attributes_for(:resume,name: nil)
-          patch :update, params: {id: @resume.id,resume: resume_params}
+          patch :update, params: {id: @resume.id,resume: @resume_params}
           expect(response).to render_template(:edit)
         end
       end
@@ -69,41 +71,28 @@ RSpec.describe ResumesController, type: :controller do
   end
 
   describe "#new" do
-    it "200レスポンスを返すこと" do
+    it "200レスポンスを返すこと,newテンプレートが表示されていること,@resumeがnewされていること" do
       get :new
-      expect(response).to have_http_status "200"
-    end
-
-    it "newテンプレートが表示されていること" do
-      get :new
-      expect(response).to render_template(:new)
-    end
-
-    it '@resumeがnewされていること' do
-      get :new
-      expect(assigns :resume).to_not be_nil
+      
+      aggregate_failures do
+        expect(response).to have_http_status "200"
+        expect(response).to render_template(:new)
+        expect(assigns :resume).to_not be_nil
+      end
     end
   end
 
   describe "#edit" do
-    before do
+    it "200レスポンスを返すこと,editテンプレートが表示されていること,@resumeが取得できていること" do
       @resume = FactoryBot.create(:resume)
-    end
-
-    it "200レスポンスを返すこと" do
       get :edit, params: {id: @resume.id}
-      expect(response).to have_http_status "200"
-    end
 
-    it "editテンプレートが表示されていること" do
-      get :edit, params: {id: @resume.id}
-      expect(response).to render_template(:edit)
-    end
-
-    it "@resumeが取得できていること" do
-      get :edit, params: {id: @resume.id}
-      expect(assigns :resume).to eq @resume
+      aggregate_failures do
+        expect(response).to have_http_status "200"
+        expect(response).to render_template(:edit)
+        expect(assigns :resume).to eq @resume
+      end
     end
   end
-  
+
 end
